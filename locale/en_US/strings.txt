@@ -239,7 +239,7 @@ $TLS_req_status_obsolete = "Obsolete";
 $TLS_reserved_system_role_1 = 'reserved system role 1';
 $TLS_reserved_system_role_2 = 'reserved system role 2';
 $TLS_req_created_automatic_log = "Requirement Created";
-$TLS_elapsed_seconds = 'Processing time (seconds)'; 
+$TLS_elapsed_seconds = 'Processing time (seconds)';
 
 
 // ----- unsorted (TODO move) -------------------------------------
@@ -803,7 +803,7 @@ $TLS_suggest_create_revision = "Do you want to create a new revision?\\n" .
                                "if you made major changes.\\n" .
                                "Click on Cancel if you want update but without\\n" .
                                "creating a new revision";
-                            
+
 $TLS_suggest_create_revision_html = "You changed ONLY the scope. " .
                                     "It is recommended to create a new revision only <br>" .
                                     "if you made major changes. In this situation please add a log message<br>" .
@@ -811,7 +811,7 @@ $TLS_suggest_create_revision_html = "You changed ONLY the scope. " .
                                     "creating a new revision<p><b>Log message</b>";
 
 $TLS_warning_suggest_create_revision = "Attention!! - Do you want to create a new revision?";
-                            
+
 $TLS_revision_log_title = "Revision Log";
 $TLS_please_add_revision_log = "Please add a log message";
 $TLS_commit_title = "Log message";
@@ -3168,7 +3168,7 @@ $TLS_use_html_code_comp = "HTML Code Compare";
 
 $TLS_diff_subtitle_tc = "Differences between version %s (v%s) and version %s (v%s) of testcase %s";
 $TLS_diff_subtitle_req = "Differences between version %s (v%s) and version %s (v%s) of requirement %s";
-$TLS_diff_details_req = "Differences between version %s revision %s (v%s r%s) and " . 
+$TLS_diff_details_req = "Differences between version %s revision %s (v%s r%s) and " .
                         "version %s revision %s (v%s r%s) of requirement %s";
 $TLS_warning_context = "Context (lines) must be a number.";
 $TLS_warning_context_range = "Context is out of range (must be a positive number).";
@@ -3241,7 +3241,7 @@ $TLS_platform_not_on_tproject = "Input file request platform %s be linked to tes
 $TLS_platform_linked = "Platform %s has been linked to test plan.";
 $TLS_tcase_link_updated = "Test Case (%s) - Version (%s) was already linked to Test Plan, only execution order has been updated.";
 
-                                                                                                        
+
 // ----- lib/execute/execExport.php -----
 $TLS_export_execution_set = 'Export Execution Set';
 
@@ -3252,7 +3252,7 @@ $TLS_no_label_for_req_type = 'No req_type_labels configuration for type: %s';
 // ----- lib/functions/remote_exec.php
 $TLS_remoteExecServerConfigProblems = 'Remote execution can not be launched due to missing configuration.\n' .
 									  'Please check if the required Custom Fields are defined and assigned ' .
-									  'to this test project'; 
+									  'to this test project';
 
 $TLS_remoteExecServerConnectionFailure = 'Remote execution connection failure - check you config';
 
@@ -3287,6 +3287,7 @@ $TLS_bugzilla_bug_created = "BUGZILLA Issue Created (summary:%s) on product:%s";
 $TLS_bts_check_ok = "Connection is OK";
 $TLS_bts_check_ko = "Connection is KO (detailed messages on TestLink Event Log), check configuration";
 $TLS_check_bts_connection = "Check connection";
+$TLS_gitlab_bug_created = "Gitlab Issue Created (summary:%s) on project with id:%s";
 
 $TLS_can_not_create_direct_link = 'You do not have a TestLink API KEY, direct link can not be generated';
 
@@ -3294,7 +3295,7 @@ $TLS_seems_to_belong_to_other_tproject = "Attention! - Test case have prefix %s 
 $TLS_provide_full_external_tcase_id = "Attention! - You need to provide FULL test case id: %s%sNUMBER";
 $TLS_tcase_doesnot_exist = "Attention!! - Can not find test case identified by %s";
 
-// ----- pluginView.php -----       
+// ----- pluginView.php -----
 $TLS_title_plugins = "undefined";
 $TLS_title_plugin_mgmt = "undefined";
 $TLS_th_plugin = "undefined";
