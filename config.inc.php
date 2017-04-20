@@ -1396,6 +1396,15 @@ $tlCfg->req_cfg->duplicated_name_algorithm->text = " (%s)";
 $tlCfg->req_cfg->duplicated_docid_algorithm = new stdClass();
 $tlCfg->req_cfg->duplicated_docid_algorithm->text = " (%s)";
 
+// Automatic generation of requirement document ids
+// If this boolean parameter is set to true new requirements will have
+// an automaically generated document id. This id is taken from the hierarchy
+// of the requirement specification.
+// E.g:
+// System specification -> Graphical User Interface -> Authorization -> requirement
+// This hierarchy is combined as: Sys.Gra.Aut.<ID>
+$tlCfg->req_cfg->auto_req_doc_id = true;
+
 
 // ----------------------------------------------------------------------------
 /* [TREE FILTER CONFIGURATION] */

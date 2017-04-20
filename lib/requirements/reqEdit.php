@@ -124,6 +124,7 @@ function init_args(&$dbHandler)
 function renderGui(&$argsObj,$guiObj,$opObj,$templateCfg,$editorCfg,&$dbHandler)
 {
   $smartyObj = new TLSmarty();
+  $cfg = config_get('req_cfg');
   $renderType = 'none';
   // @TODO document
   $actionOpe = array('create' => 'doCreate', 'edit' => 'doUpdate',
@@ -177,9 +178,15 @@ function renderGui(&$argsObj,$guiObj,$opObj,$templateCfg,$editorCfg,&$dbHandler)
     case "doDelete":
       $guiObj->refreshTree = 1; // has to be forced
     break;
-  
+
+    case "create":
     case "doCreate":
       $guiObj->refreshTree = $argsObj->refreshTree;
+
+      // Automatically generate the document id?
+      if ($cfg->auto_req_doc_id) {
+          $opObj->req = array('req_doc_id' => generate_doc_id($argsObj, $dbHandler));
+      }
     break;
   
     case "doUpdate":
@@ -307,5 +314,80 @@ function initialize_gui(&$dbHandler,&$argsObj,&$commandMgr)
 function checkRights(&$db,&$user)
 {
   return ($user->hasRight($db,'mgt_view_req') && $user->hasRight($db,'mgt_modify_req'));
+}
+
+function generate_doc_id($argsObj, $dbHandler)
+{
+    $table_names = array('requirements','nodes_hierarchy', 'node_types', 'req_specs');
+    $tables = tlObjectWithDB::getDBTables();
+
+    $rs = get_hierarchy_sql($dbHandler, $tables, $argsObj->req_spec_id);
+
+    if (is_null($rs))
+    {
+        return null;
+    }
+
+    $auto_doc_id = '.';
+    $auto_doc_id = substr($rs['doc_id'], 0, 3) . $auto_doc_id;
+
+    while (!is_null($rs))
+    {
+        $rs = get_hierarchy_sql($dbHandler, $tables, $rs['parent_id']);
+
+        if (!is_null($rs))
+        {
+            $auto_doc_id = substr($rs['doc_id'], 0, 3) . '.' . $auto_doc_id;
+        }
+    }
+
+    $count = get_req_count_sql($dbHandler, $tables, $argsObj->req_spec_id);
+    $auto_doc_id .= $count;
+
+    if (is_null($rs))
+    {
+        return $auto_doc_id;
+    }
+
+    return $auto_doc_id;
+}
+
+function get_hierarchy_sql($dbHandler, $tables, $id)
+{
+    $sql = "/* debugMsg */ SELECT NH.parent_id, RS.doc_id" .
+           " FROM {$tables['nodes_hierarchy']} NH" .
+           " INNER JOIN {$tables['req_specs']} RS" .
+           " ON NH.id = RS.id WHERE NH.id = " . intval($id) .
+           " AND NH.node_type_id = (select NT.id FROM {$tables['node_types']} NT" .
+           " WHERE NT.description = 'requirement_spec')";
+
+    $rs = $dbHandler->get_recordset($sql);
+
+    if (!is_null($rs))
+    {
+        $rs = $rs[0];
+    }
+    return $rs;
+}
+
+function get_req_count_sql($dbHandler, $tables, $id)
+{
+    $debugMsg = ' Function: ' . __FUNCTION__;
+    $sql =  " /* $debugMsg */ SELECT COUNT(*) " .
+          " FROM {$tables['requirements']} REQ" .
+          " WHERE REQ.srs_id = " . intval($id);
+
+    $rs = $dbHandler->get_recordset($sql);
+
+    if (!is_null($rs))
+    {
+        $retVal = intval($rs[0]['count']) + 1;
+    }
+    else
+    {
+        $retVal = 1;
+    }
+
+    return $retVal;
 }
 ?>
